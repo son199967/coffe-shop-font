@@ -32,7 +32,7 @@ componentDidMount(){
 }
 
 callApiGetAllCaLamViec = async () => {
-    const caLamViec = await axios.get(API_BASE_URL + '/getAllCalamNextWeek')
+    const caLamViec = await axios.get(API_BASE_URL + '/getAllCalamInWeeK')
         .then(function (response) {
             if (response.status === 200) {
                 return response.data;
@@ -43,6 +43,19 @@ callApiGetAllCaLamViec = async () => {
         });
 
     this.setState({caLamViec })
+}
+callApiDangKiTuanToi = async () => {
+  const caLamViec = await axios.get(API_BASE_URL + '/getAllCalamNextWeek')
+      .then(function (response) {
+          if (response.status === 200) {
+              return response.data;
+          }
+      })
+      .catch(function (error) {
+          console.log(error);
+      });
+
+  this.setState({caLamViec })
 }
 registerCaLamViec = async (id) => {
   await axios.get(API_BASE_URL + '/register?id='+id,{
@@ -94,6 +107,15 @@ render(){
     return(
 
         <div className="m-5">
+          <div className="row m-5">
+            <div className="col-6">
+            <input type="button" class="btn btn-danger" onClick={()=>this.callApiGetAllCaLamViec()} value="Thời gian biểu trong tuần" />
+            </div>
+            <div className="col-6">
+            <input type="button" class="btn btn-danger" onClick={()=>this.callApiDangKiTuanToi()} value="Đăng kí lịch tuần tới" />
+            </div>
+
+          </div>
             <table class="table">
   <thead class="thead-dark">
     <tr>
