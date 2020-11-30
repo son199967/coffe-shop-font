@@ -17,6 +17,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import MenuPage from './components/Home/MenuPage';
 function App() {
   const [title, updateTitle] = useState(null);
   const [errorMessage, updateErrorMessage] = useState(null);
@@ -41,11 +42,11 @@ function App() {
             <Route path="/admin">
               <Admin />
             </Route>
-            {/* <Route path="/menu">
+            <Route path="/menu">
           <Header />
             <MenuPage />
           </Route>
-          <Route path="/contact">
+          {/* <Route path="/contact">
           <Header />
             <ContactPage />
           </Route>

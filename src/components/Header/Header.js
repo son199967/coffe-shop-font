@@ -28,10 +28,10 @@ const Header = (props) => {
                     <a href="today-special.html">Today Special</a>
                   </li>
                   <li>
-                    <a href="menu.html">Menu</a>
+                    <a href="/menu">Menu</a>
                   </li>
                   <li>
-                    <a href="contact.html">Contact</a>
+                    <a href="/contact">Contact</a>
                   </li>
                 </ul>
               </nav>
