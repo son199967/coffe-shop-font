@@ -88,13 +88,7 @@ class Menu extends Component {
     }
 
     componentDidMount() {
-        if (localStorage.getItem(ACCESS_TOKEN_NAME) === "null" || localStorage.getItem(ACCESS_TOKEN_NAME) === null || localStorage.getItem(ACCESS_TOKEN_NAME) === undefined || localStorage.getItem(ACCESS_TOKEN_NAME) === "undefined") {
-            alert("Đăng Nhập trước khi Login")
-            this.redirectToLoginHome();
-        } else {
             this.callAPI()
-        }
-        localStorage.getItem(ACCESS_TOKEN_NAME)
     }
     callAPI = async () => {
         console.log("aaa" + this.state.email + "bbb" + this.state.password);
@@ -255,11 +249,11 @@ class Menu extends Component {
         const sanPhamLoai = this.state.sanPhamLoai.map((s) =>
             <div class="col-md-5 ">
                 <div class="thumbnail border border-primary p-4 bg-warning m-5">
-                    <a href="#">
-                        <img src={s.hinhAnh} alt="Lights" style={{ "width": "80%" }} />
+                <a href="#">
+                        <img src={s.hinhAnh} alt="Lights" style={{ width: "150px",height: "150px" }} />
                     </a>
-                    <div class="caption">
-                        <h4 className="m-2">{s.tenSanPham}</h4>
+                    <div class="caption " style={{ width: "150px",height: "80px"  }}>
+                        <h3 className="m-2" style={{alignContent:"center"}}>{s.tenSanPham}</h3>
                     </div>
                     <div className="caption">
                     <h5 className="m-2">{s.mota}</h5>

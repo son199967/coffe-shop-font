@@ -24,7 +24,7 @@ render() {
         <div className="row">
           <div className="tm-top-header-inner">
             <div className="tm-logo-container">
-              <img src="img/logo.png" alt="Logo" className="tm-site-logo" />
+              <img src="../img/logo.png" alt="Logo" className="tm-site-logo" />
               <h1 className="tm-site-name tm-handwriting-font">Cafe House</h1>
             </div>
             <div className="mobile-menu-icon">
@@ -42,6 +42,9 @@ render() {
                 </li>
                 <li>
                   <a href="#" onClick={()=>this.redicrect("/product")}>QuanLySanPham</a>
+                </li>
+                <li>
+                  <a href="#" onClick={()=>this.redicrect("/doanhthu")}>BaoCaoDoanhThu</a>
                 </li>
                 <li>
                   <a href="" onClick={()=>this.redicrect("/account")}>Account</a>

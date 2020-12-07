@@ -12,6 +12,7 @@ import Product from "./Product";
 import React, { Component } from 'react';
 import QuanLyNhanVien from "./QuanLyNhanVien";
 import MyAccount from "./MyAccount";
+import BaoCaoDoanhThu from "./BaoCaoDoanhThu";
 class Admin extends Component {
 
   constructor(props) {
@@ -50,6 +51,11 @@ class Admin extends Component {
                 <Route path="/admin/account" component={MyAccount} >
                   <MyAccount />
                 </Route>
+                
+                <Route path="/admin/doanhthu" component={BaoCaoDoanhThu} >
+                  <BaoCaoDoanhThu />
+                </Route>
+                
               </Switch>
               </div>
              

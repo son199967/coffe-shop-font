@@ -6,6 +6,7 @@ class Product extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            selectedFile: null,
             sanPhamList: [{
                 id: "",
                 hinhAnh: "",
@@ -26,6 +27,29 @@ class Product extends Component {
             }
         }
     }
+    onFileChangeHandler = async (e) => {
+        e.preventDefault();
+
+        console.log(process.cwd());
+        const formData = new FormData();
+        formData.append('file', e.target.files[0]);
+        console.log("filwData", formData)
+        const url = await axios.post("http://localhost:8080/upload", formData).then(function (response) {
+            if (response.status === 200) {
+                console.log("data", response.data)
+                return response.data;
+            }
+        })
+        console.log("url", url)
+        const { sanPham } = this.state
+        this.setState({
+            sanPham: {
+                ...sanPham,
+                hinhAnh: url
+            }
+        });
+
+    };
 
     callApiAddSanPham = () => {
         console.log("demo", this.state.sanPham)
@@ -79,6 +103,7 @@ class Product extends Component {
         this.callApiGetAllSanPham();
     }
     render() {
+        console.log("selectedFile", this.state.sanPham)
         const sanPhamList = this.state.sanPhamList.map((c) =>
             <tr>
                 <td data-th="Product">
@@ -102,6 +127,11 @@ class Product extends Component {
                 </td>
             </tr>
         )
+        let img =null
+        if(this.state.sanPham.hinhAnh!==""){
+            img =         <img src={this.state.sanPham.hinhAnh} style={{width: "150px",height:"150px"}}></img>
+
+        }
         return (
             <div className="container">
                 <div className="row">
@@ -148,11 +178,17 @@ class Product extends Component {
                                     <label for="inputEmail4">Hệ số Discount</label>
                                     <input type="number" class="form-control" value={this.state.hsDiscount} onChange={(e) => this.handleChangeObj(e, "hsDiscount")} placeholder="Hệ số Discount" />
                                 </div>
-                                <div class="form-group col-md-12">
-                                    <label for="inputEmail4">Hình Ảnh</label>
-                                    <input type="name" class="form-control" value={this.state.hinhAnh} onChange={(e) => this.handleChangeObj(e, "hinhAnh")} placeholder="Hình Ảnh" />
-                                </div>
-                                <div class="form-group col-md-12">
+                              
+                                    <div className="col-5">
+                                        <label>Upload Your File </label>
+                                        <input type="file"  name="file" onChange={this.onFileChangeHandler} />
+                                    </div>
+                                    <div className="col-7">
+{img}
+                                    </div>
+
+                            
+                                <div class="form-group col-md-12 p-5">
                                     <input type="submit" class="form-control" className="btn-success" onClick={() => this.callApiAddSanPham()} placeholder="" />
                                 </div>
                             </div>

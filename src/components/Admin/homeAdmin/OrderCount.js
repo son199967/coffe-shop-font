@@ -201,6 +201,9 @@ class OrderCount extends Component {
             }
         });
     }
+    redirectToOrder = () => {
+        this.props.history.push('/admin/order');
+    }
     
     deleteSpToCart =async(idHd,idHdct)=>{
         const hoaDon = await axios.delete(API_BASE_URL + `/deleteSpInHdct?idHd=${idHd}&idCt=${idHdct}`, {
@@ -212,6 +215,17 @@ class OrderCount extends Component {
             } 
         })
        this.setState({hoaDon});
+    }
+    thanhToanDon =async()=>{
+        const hoaDon = await axios.get(API_BASE_URL + `/thanhtoanDon?id=${this.state.hoaDon.id}`, {
+        }).then(function (response) {
+            if (response.status === 200) {
+                console.log("hoadon",response.data)
+                alert("Hoá đơn thanh toán thành công ")
+               return response.data;
+            } 
+        })
+     this.componentDidMount();
     }
     addSpToCartIteim = async (s) => {
         console.log(this.state.khachHang)
@@ -252,13 +266,13 @@ class OrderCount extends Component {
             </div>
         )
         const sanPhamLoai = this.state.sanPhamLoai.map((s) =>
-            <div class="col-md-4 ">
-                <div class="thumbnail border border-primary p-4 bg-warning">
+            <div class="col-md-4  mt-4 ">
+                <div class="thumbnail border border-primary border rounded p-4 bg-warning">
                     <a href="#">
-                        <img src={s.hinhAnh} alt="Lights" style={{ "width": "80%" }} />
+                        <img src={s.hinhAnh} alt="Lights" style={{ width: "150px",height: "150px" }} />
                     </a>
-                    <div class="caption">
-                        <h4 className="m-2">{s.tenSanPham}</h4>
+                    <div class="caption " style={{ width: "150px",height: "80px" }}>
+                        <h4 className="m-2" >{s.tenSanPham}</h4>
                     </div>
                     <div>
                         <input type="button" class="btn btn-primary" onClick={() => this.addSpToCartIteim(s)} value="Add To Cart" />
@@ -335,6 +349,11 @@ class OrderCount extends Component {
                     <div>
         <h4>Total:{this.state.hoaDon.tongTien}VND</h4>
                     </div>
+                    <div>
+                    <input type="button" class="btn btn-primary" value="ThanhToanDon" onClick={() => this.thanhToanDon()} />
+
+                    </div>
+
 
                 </div>
             </div>
