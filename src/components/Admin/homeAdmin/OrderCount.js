@@ -172,11 +172,12 @@ class OrderCount extends Component {
 
     }
     addCustomer = async () => {
-        const khachHang = axios.post(API_BASE_URL + '/addKhachHang', this.state.khachHang, {
+        const khachHang = await axios.post(API_BASE_URL + '/addKhachHang', this.state.khachHang, {
             headers: { Authorization: localStorage.getItem(ACCESS_TOKEN_NAME) }
         }).then(function (response) {
             if (response.status === 200) {
                 alert("Thêm khách hàng thành công")
+                return response.data
             } else {
                 alert("Có lỗi xảy ra")
             }
@@ -185,6 +186,7 @@ class OrderCount extends Component {
                 console.log(error);
             });
         this.setState({ khachHang })
+       await this.getHoaDonNotPaymnetByKH(khachHang.sdt)
     }
     updateState = (loai) => {
         this.setState({ loaiClick: loai })
@@ -259,7 +261,8 @@ class OrderCount extends Component {
     }
 
     render() {
-        console.log("loaiSp",this.state.hoaDon)
+        console.log("kh",this.state.khachHang)
+        console.log("hd",this.state.hoaDon)
         const loaiSp = this.state.loaiSp.map((s) =>
             <div className="col-2">
                 <button type="button" class="btn btn-warning" onClick={() => this.updateState(s)}>{s}</button>
@@ -312,7 +315,7 @@ class OrderCount extends Component {
 
             <div className="row mt-5 mb-5" style={{ "font-size": "15px" }}>
                 <div className="col-7 border">
-                    <h1>Order</h1>
+                
                     <div className="row">
                         {loaiSp}
                     </div>
@@ -321,7 +324,7 @@ class OrderCount extends Component {
                     </div>
                 </div>
                 <div className="col-4 border ml-4">
-                    <h1>Khach Hang</h1>
+                
                     <form className="form-row">
                         <div class="form-group col-lg-12">
                             <label for="inputAddress">Tên Khách Hàng</label>
@@ -347,7 +350,7 @@ class OrderCount extends Component {
                         {spOrder}
                     </div>
                     <div>
-        <h4>Total:{this.state.hoaDon.tongTien}VND</h4>
+                  <h4>Total:{this.state.hoaDon.tongTien}VND</h4>
                     </div>
                     <div>
                     <input type="button" class="btn btn-primary" value="ThanhToanDon" onClick={() => this.thanhToanDon()} />

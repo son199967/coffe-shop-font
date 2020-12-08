@@ -4,6 +4,8 @@ import { API_BASE_URL, ACCESS_TOKEN_NAME } from '../../../constants/apiContants'
 import axios from 'axios';
 import DatePicker from 'react-date-picker';
 import 'react-date-picker/dist/DatePicker.css';
+import Moment from 'react-moment';
+
 class BaoCaoDoanhThu extends Component {
   constructor(props) {
     super(props);
@@ -99,8 +101,18 @@ handleChange = async(e) => {
   
   render() {
       console.log("xx",this.state.doanhthu)
-
+   const donhang= this.state.hoaDon.map((d,i)=> 
+   <tr>
+   <th scope="row">{i}</th>
+   <td><Moment date={d.time} /></td>
+  <td>{d.hoaDonChiTiet.map(s=> <p>{s.sanPham.tenSanPham}:{s.soLuong}</p>)}</td>
+  <td>{d.tongTien}</td>
+ </tr>
+    )
     return (
+        <div>
+
+        
      <div className='p-5 m-5 row'>
          
            <div className="col-6">
@@ -130,6 +142,25 @@ handleChange = async(e) => {
  </div>
  </form>
            </div>
+     </div>
+
+     <table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Giờ</th>
+      <th scope="col">Sản phẩm</th>
+      <th scope="col">Tổng tiền</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {donhang}
+  </tbody>
+</table>
+<div> 
+    <h4 class="text-primary">Tổng doanh thu :{this.state.doanhthu}</h4>
+</div>
      </div>
     )
   }

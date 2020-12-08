@@ -38,7 +38,7 @@ componentDidMount(){
 }
 handleChange = async(e) => {
  await this.setState({month:e.target.value});
-await this.callApiGetLuong();x
+await this.callApiGetLuong();
 }
 handleChangeYear = async(e) => {
   await this.setState({year:e.target.value});
