@@ -1,14 +1,41 @@
 import React from "react";
-
+import Carousel from 'react-bootstrap/Carousel'
 const Intro = (props) => {
   return (
     <div>
+      <Carousel>
+    <Carousel.Item>
+      <img
+        className="d-block w-100"
+        src="https://www.highlandscoffee.com.vn/vnt_upload/weblink/HCO-7605-FESTIVE-2020-WEB-FB-2000X639_1.png"
+        alt="First slide"
+      />
+     
+    </Carousel.Item>
+    <Carousel.Item>
+      <img
+        className="d-block w-100"
+        src="https://www.highlandscoffee.com.vn/vnt_upload/weblink/HCO-7548-PHIN-SUA-DA-2019-TALENT-WEB_1.jpg"
+        alt="Third slide"
+      />
+  
+     
+    </Carousel.Item>
+    <Carousel.Item>
+      <img
+        className="d-block w-100"
+        src="https://www.highlandscoffee.com.vn/vnt_upload/weblink/web_1.png"
+        alt="Third slide"
+      />
+  
+   
+    </Carousel.Item>
+  </Carousel>
       <section className="tm-welcome-section">
         <div className="container tm-position-relative">
+        
           <div className="tm-lights-container">
-            <img src="img/light.png" alt="Light" className="light light-1" />
-            <img src="img/light.png" alt="Light" className="light light-2" />
-            <img src="img/light.png" alt="Light" className="light light-3" />
+          
           </div>
           <div className="row tm-welcome-content">
             <h2 className="white-text tm-handwriting-font tm-welcome-header">
@@ -38,11 +65,6 @@ const Intro = (props) => {
               Details
             </a>
           </div>
-          <img
-            src="img/table-set.png"
-            alt="Table Set"
-            className="tm-table-set img-responsive"
-          />
         </div>
       </section>
     </div>

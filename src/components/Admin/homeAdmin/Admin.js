@@ -31,7 +31,7 @@ class Admin extends Component {
             <Router>
       
             <AdminHead />
-            <div className="container">
+            <div className="">
               <Switch>
                 <Route path="/admin/order" component={OrderCount} >
                   <OrderCount />

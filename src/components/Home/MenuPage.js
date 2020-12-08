@@ -246,24 +246,49 @@ class Menu extends Component {
                 <a href="#" onClick={() => this.updateState(s)} >###{s}</a>
             </div>
         )
-        const sanPhamLoai = this.state.sanPhamLoai.map((s) =>
-            <div class="col-md-5 ">
-                <div class="thumbnail border border-primary p-4 bg-warning m-5">
-                <a href="#">
-                        <img src={s.hinhAnh} alt="Lights" style={{ width: "150px",height: "150px" }} />
-                    </a>
-                    <div class="caption " style={{ width: "150px",height: "80px"  }}>
-                        <h3 className="m-2" style={{alignContent:"center"}}>{s.tenSanPham}</h3>
-                    </div>
-                    <div className="caption">
-                    <h5 className="m-2">{s.mota}</h5>
-                    </div>
-                    <div className="caption">
-                    <h3 className="m-2">{s.gia}VND</h3>
-                    </div>
+        const sanPhamLoai = this.state.sanPhamLoai.map((s,index) =>
+        <div className="tm-popular-item col-4" key={index}>
+        <img
+          src= {s.hinhAnh}
+          alt="Popular"
+          style={{width:"200px",height:"200px"}}
+          className="tm-popular-item-img"
+        />
+        <div className="tm-popular-item-description">
+        <h3 className="tm-handwriting-font tm-popular-item-title " style={{ width: "100%", height: "20px" }}>
+                        {s.tenSanPham}
+                    </h3>
+                    <hr className="tm-popular-item-hr mt-5" />
+                    <p style={{ width: "100%", height: "40px" }}>
+                        {s.mota}
+                    </p>
+          {/* <div className="order-now-container center">
+            <a
+              href="#"
+              className="order-now-link tm-handwriting-font"
+            >
+              Order Now
+            </a>
+          </div> */}
+        </div>
+      </div>
+            // <div class="col-md-5 ">
+            //     <div class="thumbnail border border-primary p-4 bg-warning m-5">
+            //     <a href="#">
+            //             <img src={s.hinhAnh} alt="Lights" style={{ width: "150px",height: "150px" }} />
+            //         </a>
+            //         <div class="caption " style={{ width: "150px",height: "80px"  }}>
+            //             <h3 className="m-2" style={{alignContent:"center"}}>{s.tenSanPham}</h3>
+            //         </div>
+            //         <div className="caption">
+            //         <h5 className="m-2">{s.mota}</h5>
+            //         </div>
+            //         <div className="caption">
+            //         <h3 className="m-2">{s.gia}VND</h3>
+            //         </div>
                     
-                </div>
-            </div>
+            //     </div>
+            // </div>
         )
 
         let spOrder = null;

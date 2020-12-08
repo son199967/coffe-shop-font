@@ -186,7 +186,7 @@ class OrderCount extends Component {
                 console.log(error);
             });
         this.setState({ khachHang })
-       await this.getHoaDonNotPaymnetByKH(khachHang.sdt)
+        await this.getHoaDonNotPaymnetByKH(khachHang.sdt)
     }
     updateState = (loai) => {
         this.setState({ loaiClick: loai })
@@ -206,28 +206,28 @@ class OrderCount extends Component {
     redirectToOrder = () => {
         this.props.history.push('/admin/order');
     }
-    
-    deleteSpToCart =async(idHd,idHdct)=>{
+
+    deleteSpToCart = async (idHd, idHdct) => {
         const hoaDon = await axios.delete(API_BASE_URL + `/deleteSpInHdct?idHd=${idHd}&idCt=${idHdct}`, {
             headers: { Authorization: localStorage.getItem(ACCESS_TOKEN_NAME) }
         }).then(function (response) {
             if (response.status === 200) {
-                console.log("hoadon",response.data)
-               return response.data;
-            } 
+                console.log("hoadon", response.data)
+                return response.data;
+            }
         })
-       this.setState({hoaDon});
+        this.setState({ hoaDon });
     }
-    thanhToanDon =async()=>{
+    thanhToanDon = async () => {
         const hoaDon = await axios.get(API_BASE_URL + `/thanhtoanDon?id=${this.state.hoaDon.id}`, {
         }).then(function (response) {
             if (response.status === 200) {
-                console.log("hoadon",response.data)
+                console.log("hoadon", response.data)
                 alert("Hoá đơn thanh toán thành công ")
-               return response.data;
-            } 
+                return response.data;
+            }
         })
-     this.componentDidMount();
+        this.componentDidMount();
     }
     addSpToCartIteim = async (s) => {
         console.log(this.state.khachHang)
@@ -261,61 +261,87 @@ class OrderCount extends Component {
     }
 
     render() {
-        console.log("kh",this.state.khachHang)
-        console.log("hd",this.state.hoaDon)
+        console.log("kh", this.state.khachHang)
+        console.log("hd", this.state.hoaDon)
         const loaiSp = this.state.loaiSp.map((s) =>
             <div className="col-2">
-                <button type="button" class="btn btn-warning" onClick={() => this.updateState(s)}>{s}</button>
+                <button type="button" class="btn btn-info" onClick={() => this.updateState(s)}>{s}</button>
             </div>
         )
-        const sanPhamLoai = this.state.sanPhamLoai.map((s) =>
-            <div class="col-md-4  mt-4 ">
-                <div class="thumbnail border border-primary border rounded p-4 bg-warning">
-                    <a href="#">
-                        <img src={s.hinhAnh} alt="Lights" style={{ width: "150px",height: "150px" }} />
-                    </a>
-                    <div class="caption " style={{ width: "150px",height: "80px" }}>
-                        <h4 className="m-2" >{s.tenSanPham}</h4>
-                    </div>
-                    <div>
+        const sanPhamLoai = this.state.sanPhamLoai.map((s, index) =>
+
+            <div className="tm-popular-item col-4" key={index}>
+                <img
+                    src={s.hinhAnh}
+                    alt="Popular"
+                    style={{ width: "180px", height: "200px" }}
+                    className="tm-popular-item-img"
+                />
+                <div className="tm-popular-item-description">
+                    <h3 className="tm-handwriting-font tm-popular-item-title " style={{ width: "100%", height: "20px" }}>
+                        {s.tenSanPham}
+                    </h3>
+                    <hr className="tm-popular-item-hr mt-5" />
+                    <p style={{ width: "100%", height: "40px" }}>
+                        {s.mota}
+                    </p>
+                    <div style={{ width: "100%", height: "20px" }}>
+
                         <input type="button" class="btn btn-primary" onClick={() => this.addSpToCartIteim(s)} value="Add To Cart" />
+
+
                     </div>
                 </div>
             </div>
+
+
+            // <div class="col-md-4  mt-4 ">
+            //     <div class="thumbnail border border-primary border rounded p-4 bg-warning">
+            //         <a href="#">
+            //             <img src={s.hinhAnh} alt="Lights" style={{ width: "150px",height: "150px" }} />
+            //         </a>
+            //         <div class="caption " style={{ width: "150px",height: "80px" }}>
+            //             <h4 className="m-2" >{s.tenSanPham}</h4>
+            //         </div>
+            //         <div>
+            //             <input type="button" class="btn btn-primary" onClick={() => this.addSpToCartIteim(s)} value="Add To Cart" />
+            //         </div>
+            //     </div>
+            // </div>
         )
 
         let spOrder = null;
-        if (this.state.hoaDon.hoaDonChiTiet!==undefined) {
-            if(this.state.hoaDon.hoaDonChiTiet[0].id !== "null"){
-            spOrder = this.state.hoaDon.hoaDonChiTiet.map((s) =>
-                <div className="row m-2">
-                    <div className="col-2">
-                        <a href="#">
-                            <img src={s.sanPham.hinhAnh} style={{ "width": "100%" }} />
-                        </a>
+        if (this.state.hoaDon.hoaDonChiTiet !== undefined) {
+            if (this.state.hoaDon.hoaDonChiTiet[0].id !== "null") {
+                spOrder = this.state.hoaDon.hoaDonChiTiet.map((s) =>
+                    <div className="row m-2">
+                        <div className="col-2">
+                            <a href="#">
+                                <img src={s.sanPham.hinhAnh} style={{ "width": "100%" }} />
+                            </a>
+                        </div>
+                        <div className="col-4">
+                            <p className="m-2"><i>{s.sanPham.tenSanPham}</i></p>
+                        </div>
+                        <div className="col-3">
+                            <input type="number" style={{ "width": "100%" }} min="1" value={s.soLuong} />
+                        </div>
+                        <div className="col-2">
+                            <button class="btn btn-info btn-sm"><i class="fa fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm" onClick={() => this.deleteSpToCart(this.state.hoaDon.id, s.id)}><i class="fa fa-trash-o"></i>
+                            </button>
+                        </div>
+
                     </div>
-                    <div className="col-4">
-                        <p className="m-2"><i>{s.sanPham.tenSanPham}</i></p>
-                    </div>
-                    <div className="col-3">
-                    <input type="number" style={{ "width": "100%" }}  min="1" value={s.soLuong} />
-                    </div>
-                    <div className="col-2">
-                    <button class="btn btn-info btn-sm"><i class="fa fa-edit"></i>
-                    </button>
-                    <button class="btn btn-danger btn-sm" onClick={()=>this.deleteSpToCart(this.state.hoaDon.id,s.id)}><i class="fa fa-trash-o"></i>
-                    </button>
-                    </div>
-                
-                </div>
-            )
+                )
             }
         }
         return (
 
-            <div className="row mt-5 mb-5" style={{ "font-size": "15px" }}>
-                <div className="col-7 border">
-                
+            <div className="row m-5" style={{ "font-size": "15px" }}>
+                <div className="col-8 border">
+
                     <div className="row">
                         {loaiSp}
                     </div>
@@ -323,8 +349,8 @@ class OrderCount extends Component {
                         {sanPhamLoai}
                     </div>
                 </div>
-                <div className="col-4 border ml-4">
-                
+                <div className="col-3 border ml-4">
+
                     <form className="form-row">
                         <div class="form-group col-lg-12">
                             <label for="inputAddress">Tên Khách Hàng</label>
@@ -350,10 +376,10 @@ class OrderCount extends Component {
                         {spOrder}
                     </div>
                     <div>
-                  <h4>Total:{this.state.hoaDon.tongTien}VND</h4>
+                        <h4>Total:{this.state.hoaDon.tongTien}VND</h4>
                     </div>
                     <div>
-                    <input type="button" class="btn btn-primary" value="ThanhToanDon" onClick={() => this.thanhToanDon()} />
+                        <input type="button" class="btn btn-primary" value="ThanhToanDon" onClick={() => this.thanhToanDon()} />
 
                     </div>
 
