@@ -18,6 +18,7 @@ class Product extends Component {
             }
             ],
             sanPham: {
+                id:null,
                 hinhAnh: "",
                 tenSanPham: "",
                 gia: null,
@@ -84,6 +85,19 @@ class Product extends Component {
 
         this.setState({ sanPhamList: sanPhamList })
     }
+    updatesanpham =async(id)=>{
+        const sanPham = await axios.get(API_BASE_URL + '/sanpham/getSanPhamById?id='+id)
+        .then(function (response) {
+            if (response.status === 200) {
+                return response.data;
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+        this.setState({sanPham})
+
+    }
 
     handleChangeObj = (e, name) => {
         const { sanPham } = this.state
@@ -116,14 +130,13 @@ class Product extends Component {
                     </div>
                 </td>
                 <td data-th="Price">{c.gia} đ</td>
-                <td data-th="Quantity"><input class="form-control text-center" value={c.loai} type="number" />
+                <td data-th="Quantity">{c.loai}
                 </td>
                 <td data-th="Subtotal" class="text-center">{c.hsDiscount} </td>
                 <td class="actions" data-th="">
-                    <button class="btn btn-info btn-sm"><i class="fa fa-edit"></i>
+                    <button class="btn btn-info btn-sm" onClick={()=>this.updatesanpham(c.id)}><i class="fa fa-edit"></i>
                     </button>
-                    <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>
-                    </button>
+                   
                 </td>
             </tr>
         )
@@ -160,23 +173,23 @@ class Product extends Component {
                                 <h1>Thêm Sản Phẩm</h1>
                                 <div class="form-group col-md-12">
                                     <label for="inputEmail4">Tên sản Phẩm</label>
-                                    <input type="name" class="form-control" value={this.state.tenSanPham} onChange={(e) => this.handleChangeObj(e, "tenSanPham")} placeholder="Tên Sản Phẩm" />
+                                    <input type="name" class="form-control" value={this.state.sanPham.tenSanPham} onChange={(e) => this.handleChangeObj(e, "tenSanPham")} placeholder="Tên Sản Phẩm" />
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="inputEmail4">Giá</label>
-                                    <input type="number" class="form-control" value={this.state.gia} onChange={(e) => this.handleChangeObj(e, "gia")} placeholder="Giá Sản Phẩm" />
+                                    <input type="number" class="form-control" value={this.state.sanPham.gia} onChange={(e) => this.handleChangeObj(e, "gia")} placeholder="Giá Sản Phẩm" />
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="inputEmail4">Loại</label>
-                                    <input type="name" class="form-control" value={this.state.loai} onChange={(e) => this.handleChangeObj(e, "loai")} placeholder="Loại Sản Phẩm" />
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <label for="inputEmail4">Mô tả</label>
-                                    <input type="name" class="form-control" value={this.state.mota} onChange={(e) => this.handleChangeObj(e, "mota")} placeholder="Mô tả" />
+                                    <input type="name" class="form-control" value={this.state.sanPham.loai} onChange={(e) => this.handleChangeObj(e, "loai")} placeholder="Loại Sản Phẩm" />
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label for="inputEmail4">Hệ số Discount</label>
-                                    <input type="number" class="form-control" value={this.state.hsDiscount} onChange={(e) => this.handleChangeObj(e, "hsDiscount")} placeholder="Hệ số Discount" />
+                                    <input type="name" class="form-control" value={this.state.sanPham.mota} onChange={(e) => this.handleChangeObj(e, "mota")} placeholder="Mô tả" />
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label for="inputEmail4">Hệ số Discount</label>
+                                    <input type="number" class="form-control" value={this.state.sanPham.hsDiscount} onChange={(e) => this.handleChangeObj(e, "hsDiscount")} placeholder="Hệ số Discount" />
                                 </div>
                               
                                     <div className="col-5">
