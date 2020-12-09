@@ -49,9 +49,6 @@ render() {
                 <li>
                   <a href="" onClick={()=>this.redicrect("/account")}>Account</a>
                 </li>
-                <li>
-                  <a href="contact.html">Contact</a>
-                </li>
               </ul>
             </nav>
           </div>

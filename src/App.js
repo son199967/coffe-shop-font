@@ -7,6 +7,7 @@ import Admin from './components/Admin/homeAdmin/Admin';
 import BestCoffee from './components/Home/BestCoffee';
 import DailyMenu from './components/Home/DailyMenu';
 import Items from './components/Home/Items';
+import ContactPage from './components/Home/Contact';
 
 import 'font-awesome/css/font-awesome.min.css';
 import './style.css';
@@ -45,6 +46,10 @@ function App() {
             <Route path="/menu">
           <Header />
             <MenuPage />
+          </Route>
+          <Route path="/contact">
+          <Header />
+            <ContactPage />
           </Route>
           {/* <Route path="/contact">
           <Header />

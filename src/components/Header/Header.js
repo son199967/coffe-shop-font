@@ -20,7 +20,7 @@ const Header = (props) => {
               <nav className="tm-nav">
                 <ul>
                   <li>
-                    <a href="index.html" className="active">
+                    <a href="/" className="active">
                       Home
                     </a>
                   </li>
